@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Chat App</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .stats {
+            background: #f8f9fa;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .stat-item {
+            font-size: 14px;
+            color: #6c757d;
+        }
+        .chat-container {
+            display: flex;
+            height: 500px;
+        }
+        #chat-window {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #fafafa;
+        }
+        .message {
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            animation: fadeIn 0.3s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .message .username {
+            font-weight: bold;
+            color: #4facfe;
+            margin-bottom: 5px;
+        }
+        .message .text {
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+        .message .timestamp {
+            font-size: 12px;
+            color: #6c757d;
+            text-align: right;
+        }
+        .input-area {
+            padding: 20px;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+        }
+        .user-setup {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        #username-input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        #set-username {
+            padding: 12px 20px;
+            background: #4facfe;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        #set-username:hover {
+            background: #3a9cfd;
+        }
+        .message-form {
+            display: flex;
+            gap: 10px;
+        }
+        #message-input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        #message-input:focus {
+            outline: none;
+            border-color: #4facfe;
+        }
+        #send-button {
+            padding: 12px 24px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        #send-button:hover:not(:disabled) {
+            background: #218838;
+        }
+        #send-button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+        }
+        .notification {
+            padding: 10px;
+            margin: 10px 0;
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💬 Real-time Chat App</h1>
+            <p>Using In-Memory Storage</p>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-item">Total Messages: <span id="total-messages">0</span></div>
+            <div class="stat-item">Active Users: <span id="active-users">0</span></div>
+            <div class="stat-item">Status: <span id="connection-status">Disconnected</span></div>
+        </div>
+
+        <div class="chat-container">
+            <div id="chat-window"></div>
+        </div>
+
+        <div class="input-area">
+            <div class="user-setup">
+                <input type="text" id="username-input" placeholder="Enter your username..." maxlength="20">
+                <button id="set-username">Join Chat</button>
+            </div>
+            
+            <div class="notification">
+                💡 This chat uses in-memory storage. Messages will be lost when the server restarts.
+            </div>
+
+            <form class="message-form" id="message-form">
+                <input type="text" id="message-input" placeholder="Type your message..." disabled maxlength="500">
+                <button type="submit" id="send-button" disabled>Send</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/static/chat.js"></script>
+</body>
+</html>
